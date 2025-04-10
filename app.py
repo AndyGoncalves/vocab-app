@@ -129,7 +129,7 @@ else:
     vocab = load_vocab(st.session_state.username)
 
     if not vocab:
-    st.info("Você ainda não salvou nenhuma palavra.")
+        st.info("Você ainda não salvou nenhuma palavra.")
 else:
     for word, data in vocab.items():
         st.subheader(word)
