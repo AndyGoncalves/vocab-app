@@ -89,17 +89,22 @@ if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
     st.session_state.username = ""
 
+# Se o usuário não estiver logado
 if not st.session_state.logged_in:
     st.title("🔐 Login")
     username = st.text_input("Usuário")
     password = st.text_input("Senha", type="password")
-    if st.button("Entrar"):
+    
+    login_clicked = st.button("Entrar")
+
+    if login_clicked:
         if login(username, password):
             st.session_state.logged_in = True
             st.session_state.username = username
-            st.success(f"Bem-vindo, {username}!")
+            # Redireciona para a área logada sem mensagens que interrompam o fluxo
             st.experimental_rerun()
         else:
+            # Mostra o erro sem tentar reiniciar o app à força
             st.error("Usuário ou senha inválidos.")
 else:
     st.title("📘 Meu Vocabulário")
