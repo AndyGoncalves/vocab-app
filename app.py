@@ -130,29 +130,29 @@ else:
 
     if not vocab:
         st.info("Você ainda não salvou nenhuma palavra.")
-else:
-    for word, data in vocab.items():
-        st.subheader(word)
-        st.markdown(f"📖 **Definição**: {data.get('definition', 'N/A')}")
-        st.markdown(f"🔤 **IPA**: {data.get('ipa', 'N/A')}")
-        st.markdown(f"✏️ **Frase**: _{data.get('frase', 'N/A')}_")
-
-        audio_url = data.get("audio_url")
-        if audio_url:
-            st.markdown(f"[🔗 Link para áudio]({audio_url})")
-            ext = audio_url.split('.')[-1]
-            audio_path = f"users/{st.session_state.username}/audio/{word}.{ext}"
-            if os.path.exists(audio_path):
-                with open(audio_path, "rb") as audio_file:
-                    audio_bytes = audio_file.read()
-                    st.audio(audio_bytes, format=f"audio/{ext}")
-                    st.download_button(
-                        label="⬇️ Baixar áudio",
-                        data=audio_bytes,
-                        file_name=f"{word}.{ext}",
-                        mime=f"audio/{ext}"
-                    )
+    else:
+        for word, data in vocab.items():
+            st.subheader(word)
+            st.markdown(f"📖 **Definição**: {data.get('definition', 'N/A')}")
+            st.markdown(f"🔤 **IPA**: {data.get('ipa', 'N/A')}")
+            st.markdown(f"✏️ **Frase**: _{data.get('frase', 'N/A')}_")
+    
+            audio_url = data.get("audio_url")
+            if audio_url:
+                st.markdown(f"[🔗 Link para áudio]({audio_url})")
+                ext = audio_url.split('.')[-1]
+                audio_path = f"users/{st.session_state.username}/audio/{word}.{ext}"
+                if os.path.exists(audio_path):
+                    with open(audio_path, "rb") as audio_file:
+                        audio_bytes = audio_file.read()
+                        st.audio(audio_bytes, format=f"audio/{ext}")
+                        st.download_button(
+                            label="⬇️ Baixar áudio",
+                            data=audio_bytes,
+                            file_name=f"{word}.{ext}",
+                            mime=f"audio/{ext}"
+                        )
+                else:
+                    st.warning("⚠️ Áudio não disponível localmente.")
             else:
-                st.warning("⚠️ Áudio não disponível localmente.")
-        else:
-            st.warning("⚠️ Nenhum link de áudio disponível.")
+                st.warning("⚠️ Nenhum link de áudio disponível.")
