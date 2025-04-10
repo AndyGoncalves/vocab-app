@@ -1,0 +1,4 @@
+#Bibliotecas necessárias para rodar o app
+
+streamlit
+streamlit-authenticator
